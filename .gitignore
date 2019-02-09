@@ -4,3 +4,4 @@ tmp/
 .project
 /target/
 .classpath
+.settings/

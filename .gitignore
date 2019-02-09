@@ -2,3 +2,5 @@
 bin/
 tmp/
 .project
+/target/
+.classpath

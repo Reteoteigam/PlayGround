@@ -11,61 +11,58 @@ import javafx.stage.Stage;
 
 public class RootLayout extends Application {
 
-	private Stage primaryStage;
-	private BorderPane rootLayout;
-
 	@Override
 	public void start(Stage primaryStage) {
-		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("XhodonCalculator");
 
-		initRootLayout();
-		showImport();
+		BorderPane rootLayout = initRootLayout(primaryStage);
+		AnchorPane anchorPane = initImport(rootLayout);
 	}
 
 	/**
 	 * Initializes the root layout.
+	 * 
+	 * @return
 	 */
-	public void initRootLayout() {
+	public BorderPane initRootLayout(Stage primaryStage) {
+		primaryStage.setTitle("XhodonCalculator");
+		BorderPane rootLayout = null;
 		try {
-			// Load root layout from fxml file.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(RootLayout.class.getResource("views/RootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
 
-			// Show the scene containing the root layout.
-			Scene scene = new Scene(rootLayout);
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO: handle exception
+			// Load root layout from fxml file.
 		}
+
+		// Show the scene containing the root layout.
+		Scene scene = new Scene(rootLayout);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+		return rootLayout;
 	}
 
 	/**
 	 * Shows the person overview inside the root layout.
+	 * 
+	 * @param rootLayout
+	 * @return
 	 */
-	public void showImport() {
+	public AnchorPane initImport(BorderPane rootLayout) {
+		AnchorPane anchroPane = null;
 		try {
 			// Load person overview.
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(RootLayout.class.getResource("views/Import.fxml"));
-			AnchorPane personOverview = (AnchorPane) loader.load();
+			anchroPane = (AnchorPane) loader.load();
 
 			// Set person overview into the center of root layout.
-			rootLayout.setCenter(personOverview);
+			rootLayout.setCenter(anchroPane);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * Returns the main stage.
-	 * 
-	 * @return
-	 */
-	public Stage getPrimaryStage() {
-		return primaryStage;
+		return anchroPane;
 	}
 
 	public static void main(String[] args) {

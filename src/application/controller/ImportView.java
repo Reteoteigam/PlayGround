@@ -25,19 +25,9 @@ public class ImportView implements Initializable {
 	public void importData(ActionEvent event) {
 		String text = IMPORT_INPUTFIELD.getText();
 		System.out.println(text);
-		
-		
-		
+
 		ImportUtils.parseRawData(text);
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 //		//do something long
 //		
 //		for (int i = 0; i < 10000; i++) {

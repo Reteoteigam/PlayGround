@@ -3,6 +3,9 @@ package application.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import application.parser.input.ImportUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,7 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 
 public class ImportView implements Initializable {
-
+	private static final Log LOGGER = LogFactory.getLog(ImportUtils.class);
 	@FXML
 	private Button IMPORT_BTN_IMPORT;
 
@@ -24,7 +27,6 @@ public class ImportView implements Initializable {
 
 	public void importData(ActionEvent event) {
 		String text = IMPORT_INPUTFIELD.getText();
-		System.out.println(text);
 
 		ImportUtils.parseRawData(text);
 

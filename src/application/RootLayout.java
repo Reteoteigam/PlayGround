@@ -2,6 +2,8 @@ package application;
 
 import java.io.IOException;
 
+import org.apache.commons.logging.LogFactory;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -66,6 +68,7 @@ public class RootLayout extends Application {
 	}
 
 	public static void main(String[] args) {
+		
 		launch(args);
 	}
 }

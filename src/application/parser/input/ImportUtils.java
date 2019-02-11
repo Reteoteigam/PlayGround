@@ -1,17 +1,19 @@
 package application.parser.input;
 
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.logging.Logger;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class ImportUtils {
 
-	Logger logger = Logger.getLogger(ImportUtils.class.getName());
+	private static final Log LOGGER = LogFactory.getLog(ImportUtils.class);
 
 	private static LinkedBlockingQueue<String> values = new LinkedBlockingQueue<String>(3);
 
 	public static void parseRawData(String text) {
 		values.offer(text);
-		System.out.println(text);
+		LOGGER.debug(text);
 	}
 
 }

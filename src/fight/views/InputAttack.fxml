@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+	xmlns="http://javafx.com/javafx/2.2"
+	fx:controller="fight.views.InputAttack">
+	<!-- TODO Add Nodes -->
+	<children>
+		<BorderPane layoutX="0.0" layoutY="0.0" prefHeight="200.0"
+			prefWidth="200.0">
+			<center>
+				<TableView prefHeight="200.0" prefWidth="200.0">
+					<columns>
+						<TableColumn fx:id="TBL_COL1" prefWidth="75.0"
+							text="%fight.views.Input.colloumn.creatures.title" />
+						<TableColumn fx:id="TBL_COL2" prefWidth="75.0"
+							text="%fight.views.Input.colloumn.amount.title" />
+					</columns>
+				</TableView>
+			</center>
+			<top>
+				<Label alignment="CENTER" contentDisplay="LEFT"
+					graphicTextGap="4.0" prefHeight="30.0" prefWidth="120.0"
+					rotate="0.0" text="%fight.views.InputAttack.LABEL_TOP"
+					BorderPane.alignment="CENTER" />
+			</top>
+		</BorderPane>
+	</children>
+</AnchorPane>

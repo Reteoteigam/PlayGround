@@ -6,6 +6,12 @@
 	<artifactId>xhodon.calculator</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Xhodon Calculator</name>
+
+	<properties>
+		<junit.platform.version>1.0.0</junit.platform.version>
+		<junit.jupiter.version>5.0.0</junit.jupiter.version>
+	</properties>
+
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<resources>
@@ -35,6 +41,23 @@
 			<artifactId>commons-logging</artifactId>
 			<version>1.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.4.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.4.0</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- https://cloud.google.com/translate/docs/quickstart-client-libraries?hl=de#client-libraries-install-java 
+			<dependency> <groupId>com.google.cloud</groupId> <artifactId>google-cloud-translate</artifactId> 
+			<version>1.49.0</version> </dependency> -->
+
+
 	</dependencies>
 
 </project>

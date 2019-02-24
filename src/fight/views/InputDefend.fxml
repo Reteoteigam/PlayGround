@@ -16,16 +16,16 @@
 				<TableView prefHeight="200.0" prefWidth="200.0">
 					<columns>
 						<TableColumn fx:id="TBL_COL1" prefWidth="75.0"
-							text="%fight.views.Input.colloumn.creatures.title" />
-						<TableColumn fx:id="TBL_COL2"prefWidth="75.0"
-							text="%fight.views.Input.colloumn.amount.title" />
+							text="%fight.views.input.creatures.col_titel" />
+						<TableColumn fx:id="TBL_COL2" prefWidth="75.0"
+							text="%fight.views.input.amount.col_titel" />
 					</columns>
 				</TableView>
 			</center>
 			<top>
 				<Label alignment="CENTER" contentDisplay="LEFT"
 					graphicTextGap="4.0" prefHeight="30.0" prefWidth="120.0"
-					rotate="0.0" text="%fight.views.InputDefend.LABEL_TOP"
+					rotate="0.0" text="%fight.views.input.defend.lbl_top"
 					BorderPane.alignment="CENTER" />
 			</top>
 		</BorderPane>

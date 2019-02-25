@@ -3,6 +3,8 @@ package fight.model.util;
 import java.util.HashMap;
 import java.util.List;
 
+import org.junit.platform.commons.util.CollectionUtils;
+
 import fight.model.Creature;
 import fight.model.Horde;
 import javafx.collections.FXCollections;
@@ -16,7 +18,11 @@ public class DataStorage {
   private static HashMap<String, ObservableList<Horde>> hordeList = new HashMap<>();
 
   public static void addCreatures(List<Creature> creatures) {
-    creatures = FXCollections.observableArrayList(creatures);
+    DataStorage.creatures = FXCollections.observableArrayList(creatures);
+  }
+
+  public static ObservableList<Creature> getCreatures() {
+    return creatures;
   }
 
   public static void addHordeForAttacker(List<Horde> horde) {

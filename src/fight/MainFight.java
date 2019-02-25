@@ -16,6 +16,7 @@ import fight.model.Horde;
 import fight.model.util.DataService;
 import fight.model.util.DataStorage;
 import fight.views.RootLayout;
+import javafx.collections.ObservableList;
 import utils.FileService;
 import utils.MyLogger;
 
@@ -33,14 +34,19 @@ public class MainFight {
 
     RootLayout.launch(RootLayout.class, args);
 
-//    saveData();
+    saveData();
 
     LOGGER.debug("end");
   }
 
-//  private static void saveData() {
-//    DataService.saveCreatures("/data/creatures.csv");
-//  }
+  private static void saveData() {
+    Path dir = FileService.getSave();
+    Path loadedCreatures = FileService.createIfNotExistsFile(dir, "creatures.csv");
+    ObservableList<Creature> creatures = DataStorage.getCreatures();
+
+    ArrayList<Creature> aaa = new ArrayList<>(creatures);
+    DataService.saveCreatures(loadedCreatures, aaa);
+  }
 
   private static void loadData() {
 
@@ -68,7 +74,7 @@ public class MainFight {
 
     Horde creature = new Horde()
         .setAmount(BigDecimal.ONE)
-        .setName(creatures.get(0));
+        .setName(creatures.get(0).getName());
     horde.add(creature);
     DataStorage.addHordeForAttacker(horde);
   }

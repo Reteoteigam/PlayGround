@@ -3,18 +3,19 @@ package fight.model;
 import java.math.BigDecimal;
 
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 public class Horde {
 
-  private SimpleObjectProperty<Creature> creature = new SimpleObjectProperty<>();
+  private SimpleStringProperty creature = new SimpleStringProperty();
 
   private SimpleObjectProperty<BigDecimal> amount = new SimpleObjectProperty<BigDecimal>(BigDecimal.ZERO);
 
-  public Creature getCreature() {
-    return creature.get();
+  public SimpleStringProperty getCreature() {
+    return creature;
   }
 
-  public Horde setName(Creature creature) {
+  public Horde setName(String creature) {
     this.creature.set(creature);
     return this;
   }

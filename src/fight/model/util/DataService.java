@@ -1,17 +1,17 @@
 package fight.model.util;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.math.BigDecimal;
-import java.nio.file.FileSystem;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.nio.file.spi.FileSystemProvider;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -31,7 +31,7 @@ public class DataService {
     LOGGER.debug("loadCreatures from ", path);
     try (InputStream aaa = Files.newInputStream(path, StandardOpenOption.READ);) {
       BufferedReader br = new BufferedReader(new InputStreamReader(aaa));
-      List<Creature> inputList = br.lines().skip(1).map(mapToItem).collect(Collectors.toList());
+      List<Creature> inputList = br.lines().map(mapToItem).collect(Collectors.toList());
       br.close();
       return inputList;
     } catch (FileNotFoundException e) {
@@ -42,6 +42,10 @@ public class DataService {
     return new ArrayList<Creature>();
 
   }
+
+  private static Function<Creature, String> mapToLine = (item) -> {
+    return parseItem(item);
+  };
 
   private static Function<String, Creature> mapToItem = (line) -> {
     String[] elements = line.split("\\|");
@@ -72,6 +76,36 @@ public class DataService {
     return result;
   }
 
+  private static String parseItem(Creature item) {
+    StringBuffer result = new StringBuffer(12)
+        .append(item.getName())
+        .append("|")
+        .append(item.getAttack())
+        .append("|")
+        .append(item.getDefense())
+        .append("|")
+        .append(item.getLife())
+        .append("|")
+        .append(item.getVelocity())
+        .append("|")
+        .append(item.getCapacity())
+        .append("|")
+        .append(item.getPoint())
+        .append("|")
+        .append(item.getHerbEssences())
+        .append("|")
+        .append(item.getCrystalSplinters())
+        .append("|")
+        .append(item.getPowerStones())
+        .append("|")
+        .append(item.getGoldResin())
+        .append("|")
+        .append(item.getMana())
+        .append("\n");
+
+    return result.toString();
+  }
+
   private static BigDecimal parseToBigDecimal(String element) {
     if (element == null) {
       return BigDecimal.ZERO;
@@ -85,21 +119,28 @@ public class DataService {
 
   }
 
-//  public static void saveCreatures(String resourcePath) {
-//    LOGGER.debug("saveCreatures to", resourcePath);
-//
-//    try (InputStream aaa = DataService.class.getResourceAsStream(resourcePath)) {
-//      BufferedReader br = new BufferedReader(new InputStreamReader(aaa));
-//      List<Creature> inputList = br.lines().skip(1).map(mapToItem).collect(Collectors.toList());
-//      br.close();
-//      return inputList;
-//    } catch (FileNotFoundException e) {
-//      LOGGER.debug(e);
-//    } catch (IOException e) {
-//      LOGGER.debug(e);
-//    }
-//    return new ArrayList<Creature>();
-//
-//  }
+  public static void saveCreatures(Path path, ArrayList<Creature> creatures) {
+    LOGGER.debug("saveCreatures to ", path);
+    try (OutputStream aaa = Files.newOutputStream(path)) {
+      BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(aaa));
+
+      creatures.stream().map(mapToLine).forEachOrdered(element -> {
+        try {
+          bw.write(element);
+        } catch (IOException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+      });
+
+      bw.close();
+
+    } catch (FileNotFoundException e) {
+      LOGGER.debug(e);
+    } catch (IOException e) {
+      LOGGER.debug(e);
+    }
+
+  }
 
 }

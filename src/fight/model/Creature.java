@@ -35,8 +35,8 @@ public class Creature {
 
   }
 
-  public SimpleStringProperty getName() {
-    return name;
+  public String getName() {
+    return name.get();
   }
 
   public Creature setName(String name) {
@@ -45,7 +45,7 @@ public class Creature {
   }
 
   public BigDecimal getAttack() {
-    return attack.getValue();
+    return attack.get();
   }
 
   public Creature setAttack(BigDecimal attack) {

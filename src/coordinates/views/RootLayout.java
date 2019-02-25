@@ -2,12 +2,7 @@ package coordinates.views;
 
 import java.io.IOException;
 
-import org.apache.commons.logging.LogFactory;
-
-import coordinates.parser.input.ImportUtils;
 import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;

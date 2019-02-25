@@ -7,29 +7,33 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Creature {
 
-  private SimpleStringProperty name;
+  private SimpleStringProperty name = new SimpleStringProperty();
 
-  private SimpleObjectProperty<BigDecimal> attack;
+  private SimpleObjectProperty<BigDecimal> attack = new SimpleObjectProperty<>();
 
-  private SimpleObjectProperty<BigDecimal> defense;
+  private SimpleObjectProperty<BigDecimal> defense = new SimpleObjectProperty<>();
 
-  private SimpleObjectProperty<BigDecimal> life;
+  private SimpleObjectProperty<BigDecimal> life = new SimpleObjectProperty<>();
 
-  private SimpleObjectProperty<BigDecimal> velocity;
+  private SimpleObjectProperty<BigDecimal> velocity = new SimpleObjectProperty<>();
 
-  private SimpleObjectProperty<BigDecimal> capacity;
+  private SimpleObjectProperty<BigDecimal> capacity = new SimpleObjectProperty<>();
 
-  private SimpleObjectProperty<BigDecimal> point;
+  private SimpleObjectProperty<BigDecimal> point = new SimpleObjectProperty<>();
 
-  private SimpleObjectProperty<BigDecimal> herbEssences;
+  private SimpleObjectProperty<BigDecimal> herbEssences = new SimpleObjectProperty<>();
 
-  private SimpleObjectProperty<BigDecimal> crystalSplinters;
+  private SimpleObjectProperty<BigDecimal> crystalSplinters = new SimpleObjectProperty<>();
 
-  private SimpleObjectProperty<BigDecimal> powerStones;
+  private SimpleObjectProperty<BigDecimal> powerStones = new SimpleObjectProperty<>();
 
-  private SimpleObjectProperty<BigDecimal> goldResin;
+  private SimpleObjectProperty<BigDecimal> goldResin = new SimpleObjectProperty<>();
 
-  private SimpleObjectProperty<BigDecimal> mana;
+  private SimpleObjectProperty<BigDecimal> mana = new SimpleObjectProperty<>();
+
+  public Creature() {
+
+  }
 
   public SimpleStringProperty getName() {
     return name;
@@ -137,6 +141,17 @@ public class Creature {
   public Creature setMana(BigDecimal mana) {
     this.mana.set(mana);
     return this;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder builder = new StringBuilder();
+    builder.append("Creature [name=").append(name).append(", attack=").append(attack).append(", defense=")
+        .append(defense).append(", life=").append(life).append(", velocity=").append(velocity).append(", capacity=")
+        .append(capacity).append(", point=").append(point).append(", herbEssences=").append(herbEssences)
+        .append(", crystalSplinters=").append(crystalSplinters).append(", powerStones=").append(powerStones)
+        .append(", goldResin=").append(goldResin).append(", mana=").append(mana).append("]");
+    return builder.toString();
   }
 
 }

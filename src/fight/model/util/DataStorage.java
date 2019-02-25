@@ -1,24 +1,31 @@
 package fight.model.util;
 
 import java.util.HashMap;
+import java.util.List;
 
 import fight.model.Creature;
+import fight.model.Horde;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class DataStorage {
 
   public static final String DATAKEY_ATTACKER = "DATAKEY_ATTACKER";
-  private static HashMap<String, ObservableList<Creature>> heroes = new HashMap<>();
+  private static ObservableList<Creature> creatures;
 
-  public static ObservableList<Creature> getCreatureOf(String name) {
+  private static HashMap<String, ObservableList<Horde>> hordeList = new HashMap<>();
 
-    return heroes.get(name);
+  public static void addCreatures(List<Creature> creatures) {
+    creatures = FXCollections.observableArrayList(creatures);
+  }
+
+  public static void addHordeForAttacker(List<Horde> horde) {
+    DataStorage.hordeList.put(DATAKEY_ATTACKER, FXCollections.observableArrayList(horde));
 
   }
 
-  public static void addCreatureFor(String name, Creature creature) {
-    heroes.get(name).add(creature);
-
+  public static ObservableList<Horde> getHordeOf(String datakey) {
+    return hordeList.get(datakey);
   }
 
 }

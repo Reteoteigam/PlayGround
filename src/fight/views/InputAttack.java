@@ -1,9 +1,10 @@
 package fight.views;
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import fight.model.Creature;
+import fight.model.Horde;
 import fight.model.util.DataStorage;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,14 +17,22 @@ public class InputAttack implements Initializable {
   private static final MyLogger LOGGER = MyLogger.getLogger(InputAttack.class);
 
   @FXML
-  private TableView<Creature> TBL_Attack;
+  private TableView<Horde> TBL_Attack;
+
+  @FXML
+  private TableColumn<Horde, String> COL_CREATURE;
+  @FXML
+  private TableColumn<Horde, BigDecimal> COL_AMOUNT;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     LOGGER.debug("init ", location);
 
-    ObservableList<Creature> values = DataStorage.getCreatureOf(DataStorage.DATAKEY_ATTACKER);
-    TBL_Attack.setItems(values);
+    ObservableList<Horde> horde = DataStorage.getHordeOf(DataStorage.DATAKEY_ATTACKER);
+    TBL_Attack.setItems(horde);
+
+    COL_CREATURE.setCellValueFactory(cellData -> cellData.getValue().getCreature().getName());
+    COL_AMOUNT.setCellValueFactory(cellData -> cellData.getValue().getAmount());
 
   }
 

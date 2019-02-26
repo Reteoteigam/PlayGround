@@ -31,7 +31,7 @@ public class FileService {
   public static void initialze() {
 
     temporary = createDir("tmp");
-    save = createDir("save");
+    save = createDir("target/save");
     input = createDir("input");
     output = createDir("output");
 

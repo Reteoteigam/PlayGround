@@ -3,8 +3,6 @@ package fight.model.util;
 import java.util.HashMap;
 import java.util.List;
 
-import org.junit.platform.commons.util.CollectionUtils;
-
 import fight.model.Creature;
 import fight.model.Horde;
 import javafx.collections.FXCollections;

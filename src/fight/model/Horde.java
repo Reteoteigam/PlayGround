@@ -11,22 +11,30 @@ public class Horde {
 
   private SimpleObjectProperty<BigDecimal> amount = new SimpleObjectProperty<BigDecimal>(BigDecimal.ZERO);
 
-  public SimpleStringProperty getCreature() {
-    return creature;
-  }
-
-  public Horde setName(String creature) {
+  public Horde setCreature(String creature) {
     this.creature.set(creature);
     return this;
   }
 
-  public SimpleObjectProperty<BigDecimal> getAmount() {
-    return amount;
+  public SimpleStringProperty getCreatureProperty() {
+    return creature;
+  }
+
+  public String getCreature() {
+    return creature.get();
   }
 
   public Horde setAmount(BigDecimal amount) {
     this.amount.set(amount);
     return this;
+  }
+
+  public SimpleObjectProperty<BigDecimal> getAmountProperty() {
+    return amount;
+  }
+
+  public BigDecimal getAmount() {
+    return amount.get();
   }
 
 }

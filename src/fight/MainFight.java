@@ -40,21 +40,32 @@ public class MainFight {
   }
 
   private static void saveData() {
+    // base dir to save things
     Path dir = FileService.getSave();
+
+    // save default initial data
     Path loadedCreatures = FileService.createIfNotExistsFile(dir, "creatures.csv");
     ObservableList<Creature> creatures = DataStorage.getCreatures();
+    ArrayList<Creature> creatureToWrite = new ArrayList<>(creatures);
+    DataService.saveCreatures(loadedCreatures, creatureToWrite);
 
-    ArrayList<Creature> aaa = new ArrayList<>(creatures);
-    DataService.saveCreatures(loadedCreatures, aaa);
+    // save current attacker
+    Path loadedAttacker = FileService.createIfNotExistsFile(dir, "attacker.csv");
+    ObservableList<Horde> attacker = DataStorage.getHordeOf(DataStorage.DATAKEY_ATTACKER);
+    ArrayList<Horde> attackerToWrite = new ArrayList<>(attacker);
+    DataService.saveAttacker(loadedAttacker, attackerToWrite);
+
   }
 
   private static void loadData() {
-
+// base dir to save things
     Path dir = FileService.getSave();
+
+    // initialData for Creature calculation
+    // try saved files
     Path loadedCreatures = FileService.createIfNotExistsFile(dir, "creatures.csv");
-
     List<Creature> creatures = DataService.loadCreatures(loadedCreatures);
-
+    // take backupversion
     if (creatures.isEmpty()) {
       LOGGER.debug("Missing last Save -> try load Backupfile for creatureData");
       try {
@@ -65,18 +76,26 @@ public class MainFight {
         e.printStackTrace();
         return;
       }
-
     }
-
     DataStorage.addCreatures(creatures);
 
-    List<Horde> horde = new ArrayList<>();
+// initialData For Attacker    
+    // try saved files
+    Path loadedAttacker = FileService.createIfNotExistsFile(dir, "attacker.csv");
+    List<Horde> hordeOfAttacker = DataService.loadAttacker(loadedAttacker);
 
-    Horde creature = new Horde()
-        .setAmount(BigDecimal.ONE)
-        .setName(creatures.get(0).getName());
-    horde.add(creature);
-    DataStorage.addHordeForAttacker(horde);
+    // take backupversion
+    if (hordeOfAttacker.isEmpty()) {
+      hordeOfAttacker = new ArrayList<>();
+      for (Creature creature : creatures) {
+        Horde currentCreature = new Horde()
+            .setAmount(BigDecimal.ZERO)
+            .setCreature(creature.getName());
+        hordeOfAttacker.add(currentCreature);
+      }
+    }
+
+    DataStorage.addHordeForAttacker(hordeOfAttacker);
   }
 
 }

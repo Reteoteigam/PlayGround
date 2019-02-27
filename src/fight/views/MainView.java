@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import utils.MyLogger;
+import utils.logger.MyLogger;
 
 public class MainView implements Initializable {
   private static final MyLogger LOGGER = MyLogger.getLogger(MainView.class);

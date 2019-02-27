@@ -1,7 +1,7 @@
 package coordinates;
 
 import coordinates.views.RootLayout;
-import utils.MyLogger;
+import utils.logger.MyLogger;
 
 public class MainCoordinates {
 

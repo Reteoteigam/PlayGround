@@ -1,4 +1,4 @@
-package utils;
+package fight.model.util;
 
 import java.io.IOException;
 import java.nio.file.Files;

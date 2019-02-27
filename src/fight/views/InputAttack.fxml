@@ -10,7 +10,7 @@
   <children>
     <BorderPane layoutX="0.0" layoutY="0.0" prefHeight="335.0" prefWidth="415.0">
       <center>
-        <TableView fx:id="TBL_Attack" prefHeight="170.0" prefWidth="415.0">
+        <TableView fx:id="TBL_ATTACK" prefHeight="170.0" prefWidth="415.0">
           <columns>
             <TableColumn maxWidth="3000.0" minWidth="100.0" prefWidth="120.0" text="%fight.views.input.creatures.col_titel" fx:id="COL_CREATURE" />
             <TableColumn maxWidth="3000.0" minWidth="100.0" prefWidth="120.0" text="%fight.views.input.amount.col_titel" fx:id="COL_AMOUNT" />

@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-import utils.MyLogger;
+import utils.logger.MyLogger;
 
 public class ImportUtils {
 

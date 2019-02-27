@@ -8,23 +8,19 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import fight.model.Creature;
 import fight.model.Horde;
-import utils.MyLogger;
+import utils.logger.MyLogger;
 
 public class DataService {
-  private static final MyLogger LOGGER = MyLogger.getLogger(DataService.class);
+  private static final utils.logger.MyLogger LOGGER = MyLogger.getLogger(DataService.class);
 
   public static List<Creature> loadCreatures(Path path) {
     LOGGER.debug("loadCreatures from ", path);

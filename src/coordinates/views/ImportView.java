@@ -10,7 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
-import utils.MyLogger;
+import utils.logger.MyLogger;
 
 public class ImportView implements Initializable {
   private static final MyLogger LOGGER = MyLogger.getLogger(ImportView.class);

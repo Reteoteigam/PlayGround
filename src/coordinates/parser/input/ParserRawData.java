@@ -1,6 +1,6 @@
 package coordinates.parser.input;
 
-import utils.MyLogger;
+import utils.logger.MyLogger;
 
 public class ParserRawData implements Runnable {
 

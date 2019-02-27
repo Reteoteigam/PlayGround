@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXMLLoader;
-import utils.MyLogger;
+import utils.logger.MyLogger;
 
 public class LayoutBuilder {
 

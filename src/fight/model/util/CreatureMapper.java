@@ -1,5 +1,10 @@
 package fight.model.util;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 import java.util.function.Function;
 
 import fight.model.Creature;
@@ -10,10 +15,10 @@ public class CreatureMapper {
     return parseItem(item);
   };
 
-  public static Function<String, Creature> mapToItem = (line) -> {
+  public static Function<String, Creature> mapToCreature = (line) -> {
     String[] elements = line.split("\\|");
 
-    if (elements.length == 12) {
+    if (elements.length >= 12) {
       return parseLine(elements);
     }
     return null;
@@ -34,13 +39,25 @@ public class CreatureMapper {
         .setCrystalSplinters(SecureNumberParser.parseToBigDecimal(elements[8]))
         .setPowerStones(SecureNumberParser.parseToBigDecimal(elements[9]))
         .setGoldResin(SecureNumberParser.parseToBigDecimal(elements[10]))
-        .setMana(SecureNumberParser.parseToBigDecimal(elements[11]));
-
+        .setMana(SecureNumberParser.parseToBigDecimal(elements[11]))
+        .setFactors(parseLineFactors(elements));
     return result;
   }
 
+  private static Map<String, BigDecimal> parseLineFactors(String[] elements) {
+    Map<String, BigDecimal> factors = new HashMap<>();
+    for (int i = 12; ((i + 1) < elements.length); i++) {
+
+      String key = elements[i];
+      i++;
+      BigDecimal value = SecureNumberParser.parseToBigDecimal(elements[i]);
+      factors.put(key, value);
+    }
+    return factors;
+  }
+
   private static String parseItem(Creature item) {
-    StringBuffer result = new StringBuffer(12)
+    StringBuffer result = new StringBuffer()
         .append(item.getName())
         .append("|")
         .append(item.getAttack())
@@ -64,8 +81,21 @@ public class CreatureMapper {
         .append(item.getGoldResin())
         .append("|")
         .append(item.getMana())
+        .append(parseFactors(item.getFactors()))
         .append("\n");
 
+    return result.toString();
+  }
+
+  private static String parseFactors(Map<String, BigDecimal> factors) {
+    Set<Entry<String, BigDecimal>> entrySet = factors.entrySet();
+    StringBuffer result = new StringBuffer();
+    for (Entry<String, BigDecimal> entry : entrySet) {
+      result.append("|");
+      result.append(entry.getKey());
+      result.append("|");
+      result.append(entry.getValue().toPlainString());
+    }
     return result.toString();
   }
 

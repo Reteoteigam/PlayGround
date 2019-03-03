@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import fight.model.Creature;
-import fight.model.Horde;
-import fight.model.Player;
+import fight.model.Hero;
+import fight.model.SimulationContext;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -16,7 +16,9 @@ public class Context {
   public static final String DATAKEY_DEFENDER = "DATAKEY_DEFENDER";
   private static ObservableList<Creature> creatures;
 
-  private static List<Player> players = new ArrayList<>();
+  private static List<Hero> players = new ArrayList<>();
+
+  private static SimulationContext simulationContext = new SimulationContext();
 
   public static void addCreatures(List<Creature> creatures) {
     Context.creatures = FXCollections.observableArrayList(creatures);
@@ -26,28 +28,32 @@ public class Context {
     return creatures;
   }
 
-  public static List<Player> getPlayers() {
+  public static List<Hero> getPlayers() {
 
     return Context.players;
 
   }
 
-  public static void addPlayer(Player player) {
+  public static void addPlayer(Hero player) {
 
     Context.players.add(player);
 
   }
 
-  public static Player getPlayer(String datakeyAttacker) {
-    Predicate<? super Player> predicate = new Predicate<Player>() {
+  public static Hero getPlayer(String datakeyAttacker) {
+    Predicate<? super Hero> predicate = new Predicate<Hero>() {
 
       @Override
-      public boolean test(Player t) {
-        return t.getType().equalsIgnoreCase(datakeyAttacker);
+      public boolean test(Hero t) {
+        return t.getKey().equalsIgnoreCase(datakeyAttacker);
 
       }
     };
     return players.stream().filter(predicate).findFirst().get();
+  }
+
+  public static SimulationContext getSimulationContext() {
+    return simulationContext;
   }
 
 }

@@ -2,6 +2,7 @@ package fight.model;
 
 import java.math.BigDecimal;
 
+import javafx.beans.property.SimpleMapProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 

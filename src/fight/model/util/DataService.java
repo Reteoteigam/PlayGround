@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import fight.model.Creature;
+import fight.model.Hero;
 import fight.model.Horde;
 import utils.logger.MyLogger;
 
@@ -26,7 +27,7 @@ public class DataService {
     LOGGER.debug("loadCreatures from ", path);
     try (InputStream aaa = Files.newInputStream(path, StandardOpenOption.READ);) {
       BufferedReader br = new BufferedReader(new InputStreamReader(aaa));
-      List<Creature> inputList = br.lines().map(CreatureMapper.mapToItem).collect(Collectors.toList());
+      List<Creature> inputList = br.lines().map(CreatureMapper.mapToCreature).collect(Collectors.toList());
       br.close();
       return inputList;
     } catch (FileNotFoundException e) {
@@ -47,7 +48,7 @@ public class DataService {
         try {
           bw.write(element);
         } catch (IOException e) {
-          // TODO Auto-generated catch block
+          LOGGER.debug(e);
           e.printStackTrace();
         }
       });
@@ -62,35 +63,11 @@ public class DataService {
 
   }
 
-  public static void saveAttacker(Path path, ArrayList<Horde> attackerToWrite) {
-    LOGGER.debug("saveCreatures to ", path);
-    try (OutputStream aaa = Files.newOutputStream(path)) {
-      BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(aaa));
-
-      attackerToWrite.stream().map(AttackerMapper.mapToLine).forEachOrdered(element -> {
-        try {
-          bw.write(element);
-        } catch (IOException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
-      });
-
-      bw.close();
-
-    } catch (FileNotFoundException e) {
-      LOGGER.debug(e);
-    } catch (IOException e) {
-      LOGGER.debug(e);
-    }
-
-  }
-
-  public static List<Horde> loadAttacker(Path path) {
+  public static List<Horde> loadHordeFrom(Path path) {
     LOGGER.debug("loadCreatures from ", path);
     try (InputStream aaa = Files.newInputStream(path, StandardOpenOption.READ);) {
       BufferedReader br = new BufferedReader(new InputStreamReader(aaa));
-      List<Horde> inputList = br.lines().map(AttackerMapper.mapToItem).collect(Collectors.toList());
+      List<Horde> inputList = br.lines().map(HordeMapper.lineToHorde).collect(Collectors.toList());
       br.close();
       return inputList;
     } catch (FileNotFoundException e) {
@@ -99,6 +76,59 @@ public class DataService {
       LOGGER.debug(e);
     }
     return new ArrayList<Horde>();
+
+  }
+
+  public static void saveHorde(Path path, ArrayList<Horde> hordeToWrite) {
+    LOGGER.debug("saveCreatures to ", path);
+    try (OutputStream aaa = Files.newOutputStream(path)) {
+      BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(aaa));
+
+      hordeToWrite.stream().map(HordeMapper.hordeToLine).forEachOrdered(element -> {
+        try {
+          bw.write(element);
+        } catch (IOException e) {
+          LOGGER.debug(e);
+          e.printStackTrace();
+        }
+      });
+
+      bw.close();
+
+    } catch (FileNotFoundException e) {
+      LOGGER.debug(e);
+    } catch (IOException e) {
+      LOGGER.debug(e);
+    }
+
+  }
+
+  public static Hero loadHeroFrom(Path path) {
+    try (InputStream aaa = Files.newInputStream(path, StandardOpenOption.READ);) {
+      BufferedReader br = new BufferedReader(new InputStreamReader(aaa));
+      Hero hero = HeroMapper.lineToHero(br.readLine());
+      br.close();
+      return hero;
+    } catch (FileNotFoundException e) {
+      LOGGER.debug(e);
+    } catch (IOException e) {
+      LOGGER.debug(e);
+    }
+    return new Hero();
+  }
+
+  public static void saveHero(Path path, Hero heroToWrite) {
+    LOGGER.debug("saveCreatures to ", path);
+    try (OutputStream aaa = Files.newOutputStream(path)) {
+      BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(aaa));
+      String heroToLine = HeroMapper.heroToLine(heroToWrite);
+      bw.write(heroToLine);
+      bw.close();
+    } catch (FileNotFoundException e) {
+      LOGGER.debug(e);
+    } catch (IOException e) {
+      LOGGER.debug(e);
+    }
 
   }
 

@@ -10,33 +10,8 @@
 	xmlns="http://javafx.com/javafx/2.2"
 	fx:controller="fight.views.MainView">
 	<tabs>
-		<Tab text="Input">
-			<content>
-				<ScrollPane prefHeight="768.0" prefWidth="1024.0">
-					<content>
-						<SplitPane dividerPositions="0.5"
-							focusTraversable="true" prefHeight="768.0" prefWidth="1024.0">
-							<items>
-								<BorderPane fx:id="INPUT_ATTACKER" layoutX="0.0"
-									layoutY="0.0" prefHeight="200.0" prefWidth="200.0" />
-								<BorderPane fx:id="INPUT_DEFENDER" layoutX="0.0"
-									layoutY="0.0" prefHeight="200.0" prefWidth="200.0" />
-
-							</items>
-						</SplitPane>
-					</content>
-				</ScrollPane>
-			</content>
-		</Tab>
-		<Tab text="Simulation">
-			<content>
-				<ScrollPane prefHeight="768.0" prefWidth="1024.0">
-					<content>
-						<SplitPane dividerPositions="" focusTraversable="true"
-							prefHeight="768.0" prefWidth="1024.0" />
-					</content>
-				</ScrollPane>
-			</content>
-		</Tab>
+		<Tab fx:id="INPUT" 
+			text="Input" />
+		<Tab fx:id="SIMULATION" text="Simulation" />
 	</tabs>
 </TabPane>

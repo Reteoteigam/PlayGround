@@ -4,13 +4,13 @@ import java.util.function.Function;
 
 import fight.model.Horde;
 
-public class AttackerMapper {
+public class HordeMapper {
 
-  public static Function<Horde, String> mapToLine = (item) -> {
-    return parseItem(item);
+  public static Function<Horde, String> hordeToLine = (item) -> {
+    return parseHorde(item);
   };
 
-  public static Function<String, Horde> mapToItem = (line) -> {
+  public static Function<String, Horde> lineToHorde = (line) -> {
     String[] elements = line.split("\\|");
 
     if (elements.length == 2) {
@@ -20,7 +20,9 @@ public class AttackerMapper {
 
   };
 
-  private static String parseItem(Horde item) {
+ 
+
+  private static String parseHorde(Horde item) {
     StringBuffer result = new StringBuffer(2)
         .append(item.getCreature())
         .append("|")

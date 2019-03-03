@@ -1,12 +1,13 @@
-package fight.views;
+package fight.views.simulation;
 
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import fight.model.Horde;
-import fight.model.Player;
+import fight.model.Hero;
 import fight.model.util.Context;
+import fight.views.EditingCell;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -19,8 +20,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import utils.logger.MyLogger;
 
-public class InputDefend implements Initializable {
-  private static final MyLogger LOGGER = MyLogger.getLogger(InputDefend.class);
+public class Defend implements Initializable {
+  private static final MyLogger LOGGER = MyLogger.getLogger(Defend.class);
 
   @FXML
   private TableView<Horde> TBL_DEFEND;
@@ -34,7 +35,7 @@ public class InputDefend implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     LOGGER.debug("init ", location);
 
-    Player player = Context.getPlayer(Context.DATAKEY_DEFENDER);
+    Hero player = Context.getPlayer(Context.DATAKEY_DEFENDER);
 
     TBL_DEFEND.setItems(player.getHorde());
     TBL_DEFEND.setEditable(true);

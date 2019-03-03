@@ -10,30 +10,33 @@ import java.util.List;
 import fight.MainFight;
 import fight.model.Creature;
 import fight.model.Horde;
-import fight.model.Player;
+import fight.model.Hero;
 import javafx.collections.ObservableList;
 import utils.logger.MyLogger;
 
 public class DataCreator {
+  private static final String FILE_TYPE = ".csv";
   private static final MyLogger LOGGER = MyLogger.getLogger(DataCreator.class);
 
   public static void loadData() {
     // base dir to save things
     Path fromDir = FileService.getSave();
-    // initial creatures
-    loadCreaturesFrom(fromDir);
+
 // initialData For Attacker
 
-    loadHordeFor(new Player(Context.DATAKEY_ATTACKER), fromDir);
-    loadHordeFor(new Player(Context.DATAKEY_DEFENDER), fromDir);
+    Hero hero = loadPlayer(Context.DATAKEY_ATTACKER, fromDir);
+    Context.addPlayer(hero);
+
+    hero = loadPlayer(Context.DATAKEY_DEFENDER, fromDir);
+    Context.addPlayer(hero);
   }
 
-  private static void loadCreaturesFrom(Path dir) {
+  private static void loadCreaturesFrom(String dataKey, Path fromDir) {
 
-    // initialData for Creature calculation
-    // try saved files
-    Path loadedCreatures = FileService.createIfNotExistsFile(dir, "creatures.csv");
-    List<Creature> creatures = DataService.loadCreatures(loadedCreatures);
+    String saveFileName = dataKey + ".creatureValues" + FILE_TYPE;
+
+    Path creaturesSource = FileService.createIfNotExistsFile(fromDir, saveFileName);
+    List<Creature> creatures = DataService.loadCreatures(creaturesSource);
     // take backupversion
     if (creatures.isEmpty()) {
       LOGGER.debug("Missing last Save -> try load Backupfile for creatureData");
@@ -49,26 +52,52 @@ public class DataCreator {
     Context.addCreatures(creatures);
   }
 
-  private static void loadHordeFor(Player player, Path fromDir) {
+  private static Hero loadPlayer(String dataKey, Path fromDir) {
     // try saved files
-    String saveFileName = player.getSaveFileName();
-    Path loadedAttacker = FileService.createIfNotExistsFile(fromDir, saveFileName);
-    List<Horde> horde = DataService.loadAttacker(loadedAttacker);
+
+    Hero hero = loadHero(dataKey, fromDir);
+    List<Horde> horde = loadHorde(dataKey, fromDir);
+    hero.setHorde(horde);
+    loadCreaturesFrom(dataKey, fromDir);
+    return hero;
+  }
+
+  private static Hero loadHero(String dataKey, Path fromDir) {
+    String saveFileName = dataKey + ".heroValues" + FILE_TYPE;
+    Path heroSource = FileService.createIfNotExistsFile(fromDir, saveFileName);
+    Hero hero = DataService.loadHeroFrom(heroSource);
+
+    if (!dataKey.equals(hero.getKey())) {
+      try {
+        Path backup = Paths.get(MainFight.class.getResource("/backup/hero.csv").toURI());
+        hero = DataService.loadHeroFrom(backup);
+        hero.setKey(dataKey);
+      } catch (URISyntaxException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    }
+    return hero;
+  }
+
+  private static List<Horde> loadHorde(String dataKey, Path fromDir) {
+    String saveFileName = dataKey + ".horde" + FILE_TYPE;
+    Path hordeSource = FileService.createIfNotExistsFile(fromDir, saveFileName);
+    List<Horde> horde = DataService.loadHordeFrom(hordeSource);
 
     // take backupversion
     if (horde.isEmpty()) {
-      horde = new ArrayList<>();
-      List<Creature> creatures = Context.getCreatures();
-      for (Creature creature : creatures) {
-        Horde currentCreature = new Horde()
-            .setAmount(BigDecimal.ZERO)
-            .setCreature(creature.getName());
-        horde.add(currentCreature);
+      try {
+        Path backup = Paths.get(MainFight.class.getResource("/backup/horde.csv").toURI());
+        horde = DataService.loadHordeFrom(backup);
+
+      } catch (URISyntaxException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
       }
     }
 
-    player.add(horde);
-    Context.addPlayer(player);
+    return horde;
 
   }
 
@@ -78,7 +107,7 @@ public class DataCreator {
 
     saveCreatures(toDir);
 
-    for (Player player : Context.getPlayers()) {
+    for (Hero player : Context.getPlayers()) {
       saveHordeFor(player, toDir);
     }
 
@@ -93,10 +122,10 @@ public class DataCreator {
 
   }
 
-  private static void saveHordeFor(Player player, Path toDir) {
-    String saveFileName = player.getSaveFileName();
+  private static void saveHordeFor(Hero player, Path toDir) {
+    String saveFileName = player.getKey() + ".horde" + FILE_TYPE;
     Path saveFile = FileService.createIfNotExistsFile(toDir, saveFileName);
     ArrayList<Horde> horde = new ArrayList<Horde>(player.getHorde());
-    DataService.saveAttacker(saveFile, horde);
+    DataService.saveHorde(saveFile, horde);
   }
 }

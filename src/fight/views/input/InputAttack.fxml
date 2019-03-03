@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="335.0" prefWidth="415.0"
+	xmlns:fx="http://javafx.com/fxml/1"
+	xmlns="http://javafx.com/javafx/2.2"
+	fx:controller="fight.views.input.Attack">
+	<!-- TODO Add Nodes -->
+	<children>
+		<BorderPane layoutX="0.0" layoutY="0.0" prefHeight="335.0"
+			prefWidth="415.0">
+			<bottom>
+				<TableView fx:id="TBL_ATTACK" prefHeight="170.0"
+					prefWidth="415.0">
+					<columns>
+						<TableColumn maxWidth="3000.0" minWidth="100.0"
+							prefWidth="120.0" text="%fight.views.input.creatures.col_titel"
+							fx:id="COL_CREATURE" />
+						<TableColumn maxWidth="3000.0" minWidth="100.0"
+							prefWidth="120.0" text="%fight.views.input.amount.col_titel"
+							fx:id="COL_AMOUNT" />
+					</columns>
+				</TableView>
+			</bottom>
+			<center>
+				<VBox prefHeight="200.0" prefWidth="100.0">
+					<children>
+						<FlowPane prefHeight="200.0" prefWidth="200.0">
+							<children>
+								<Label text="%fight.views.input.heroname.col_titel" />
+								<TextField fx:id="COL_HERONAME" prefWidth="200.0" />
+							</children>
+						</FlowPane>
+						<FlowPane prefHeight="200.0" prefWidth="200.0">
+							<children>
+								<Label text="%fight.views.input.heroattack.col_titel" />
+								<TextField fx:id="COL_HEROATTACK" prefWidth="200.0" />
+							</children>
+						</FlowPane>
+						<FlowPane prefHeight="200.0" prefWidth="200.0">
+							<children>
+								<Label text="%fight.views.input.herodefense.col_titel" />
+								<TextField fx:id="COL_HERODEFENSE" prefWidth="200.0" />
+							</children>
+						</FlowPane>
+						<FlowPane prefHeight="200.0" prefWidth="200.0">
+							<children>
+								<Label text="%fight.views.input.herolife.col_titel" />
+								<TextField fx:id="COL_HEROLIFE" prefWidth="200.0" />
+							</children>
+						</FlowPane>
+					</children>
+				</VBox>
+			</center>
+			<top>
+				<Label alignment="CENTER" contentDisplay="LEFT"
+					graphicTextGap="4.0" prefHeight="30.0" prefWidth="120.0"
+					rotate="0.0" text="%fight.views.input.attack.lbl_top" />
+			</top>
+		</BorderPane>
+	</children>
+</AnchorPane>

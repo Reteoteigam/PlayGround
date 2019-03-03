@@ -3,20 +3,25 @@ package fight.views;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import fight.views.input.Input;
+import fight.views.simulation.Simulation;
 import fight.views.utils.LayoutBuilder;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.Node;
+import javafx.scene.control.Tab;
 import utils.logger.MyLogger;
 
 public class MainView implements Initializable {
   private static final MyLogger LOGGER = MyLogger.getLogger(MainView.class);
 
   @FXML
-  private BorderPane INPUT_ATTACKER;
+  private Tab INPUT;
+
   @FXML
-  private BorderPane INPUT_DEFENDER;
+  private Tab SIMULATION;
 
   public MainView() {
 
@@ -27,11 +32,11 @@ public class MainView implements Initializable {
 
     LOGGER.debug("init ", location);
 
-    AnchorPane leftSide = LayoutBuilder.createLayoutFrom(InputAttack.class, "InputAttack.fxml");
-    AnchorPane rightSide = LayoutBuilder.createLayoutFrom(InputAttack.class, "InputDefend.fxml");
+    Node value = LayoutBuilder.createLayoutFrom(Input.class, "Input.fxml");
+    INPUT.setContent(value);
 
-    INPUT_ATTACKER.setCenter(leftSide);
-    INPUT_DEFENDER.setCenter(rightSide);
+    value = LayoutBuilder.createLayoutFrom(Simulation.class, "Simulation.fxml");
+    SIMULATION.setContent(value);
 
   }
 
